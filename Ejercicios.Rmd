@@ -31,7 +31,7 @@ b_2
 # Ejercicio 2 
 
 ```{r pressure, echo=FALSE}
-install.packages("dplyr")
+install.packages("dplyr",repos="http://cran.us.r-project.org")
 library(dplyr)
 tabla <- read.table("T1-6.DAT")
 colnames(tabla) <-c("x1","x2","x3","x4","x5","x6")
@@ -52,6 +52,8 @@ uno <- rep(1,n)
 v_medias <- t(grupo1) %*% uno/n
 H <- diag(n) - uno%*% t(uno)/n 
 S <- round(t(grupo1) %*% H %*% grupo1/(n-1),2)
+R <- cor(grupo1)
+
 
 #grupo2
 grupo2 <-as.matrix(grupo2)
@@ -60,14 +62,14 @@ uno <- rep(1,n)
 v_medias <- t(grupo2) %*% uno/n
 H <- diag(n) - uno%*% t(uno)/n 
 S <- round(t(grupo2) %*% H %*% grupo2/(n-1),2)
+R <- cor(grupo2)
 ```
 #Matrices de gráficas de dispersión
 ```{r}
-pairs(grupo2[,],pch=19,lower.panel = panel.smooth,upper.panel=panel.smooth)
-pairs(grupo1[,],pch=19,lower.panel = panel.smooth,upper.panel=panel.smooth)
+pairs(grupo2[,],pch=19,lower.panel = panel.smooth,upper.panel=panel.smooth, main="Información del grupo 1 -- Esclerosis")
+pairs(grupo1[,],pch=19,lower.panel = panel.smooth,upper.panel=panel.smooth, main="Información del grupo 2 -- sin Esclerosis")
 ```
 #Ejercicio 3
-
 ```{r}
 # a) Obtención del vector de medias, la matriz A y la matriz de covarianza muestral insesgada
 library(datasets)
@@ -92,10 +94,9 @@ I4 <- t(U)%*%U
 I4_2 <- U%*%t(U)
 
 # c) Matriz de gráficas de dispersión
-panel <- function(x,y){
-  points(x,y,pch=19,col=c("#009999","blue4","green")[iris$Species])
-}
-pairs(iris[,1:4],lower.panel=panel,upper.panel =panel)
+pairs(iris[,1:4],main="Característica númericas -- 3 especies de flores", pch=21,bg=c("blue","gray","green3")[iris$Species], oma=c(4,4,6,12))
+par(xpd=TRUE)
+legend(0.85,0.6, as.vector(unique(iris$Species)),fill=c("blue","gray","green3"))
 
 
 ```
