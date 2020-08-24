@@ -68,7 +68,9 @@ R <- cor(grupo2)
 ```{r}
 pairs(grupo2[,],pch=19,lower.panel = panel.smooth,upper.panel=panel.smooth, main="Información del grupo 1 -- Esclerosis")
 pairs(grupo1[,],pch=19,lower.panel = panel.smooth,upper.panel=panel.smooth, main="Información del grupo 2 -- sin Esclerosis")
+pairs(tabla[,-6],col=tabla[,6] +5, cex=1)
 ```
+
 #Ejercicio 3
 ```{r}
 # a) Obtención del vector de medias, la matriz A y la matriz de covarianza muestral insesgada
